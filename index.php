@@ -7,9 +7,16 @@
 
     $loader = new Helpers\Psr4AutoloaderClass();
     $loader->register();
+
     $loader->addNamespace('\Helpers', '/Helpers');
     $loader->addNamespace('League\Plates', 'Vendor/Plates/src');
-    $templates = new League\Plates\Engine('Views');
+    $loader->addNamespace('\Controllers', '/Controllers');
+    
+    use League\Plates\Engine;
+    use Controllers\MainController;
 
-    echo $templates->render('home', ['tftSetName' => 'Test']);
+    $templates = new Engine('Views');
+    
+    $controller = new MainController($templates);
+    $controller->index();
     ?>
