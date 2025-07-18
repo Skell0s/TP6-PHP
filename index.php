@@ -11,14 +11,23 @@
     $loader->addNamespace('\Helpers', '/Helpers');
     $loader->addNamespace('League\Plates', 'Vendor/Plates/src');
     $loader->addNamespace('\Controllers', '/Controllers');
+    $loader->addNamespace('\Controllers\Router', '/Controllers/Router');
+    $loader->addNamespace('\Controllers\Router\Route', '/Controllers/Router/Route');
     $loader->addNamespace('\Models', '/Models');
     $loader->addNamespace('\Config', '/Config');
     
-    use League\Plates\Engine;
-    use Controllers\MainController;
+    use Controllers\Router\Router;
 
-    $templates = new Engine('Views');
-    
-    $controller = new MainController($templates);
-    $controller->index();
+    try 
+    {
+        $router = new Router();
+        $router->routing($_GET, $_POST);
+    } 
+    catch (Exception $e) 
+    {
+        $message = $e->getMessage();
+        ob_clean();  
+        require "Views/error.php";
+        exit();  
+    }
 ?>

@@ -12,18 +12,15 @@
                 $this->_templates = $engine;
             }
 
-            public function index() : void 
+            public function index(?string $message) : void 
             {
                 $dao = new UnitDAO();
 
                 $getAll = $dao->getAll();
-                $getByID = $dao->getByID('1');
-                $getByID2 = $dao->getByID('b');
                 echo $this->_templates->render('home', [
                     'tftSetName' => 'Test',
                     'listUnit' => $getAll,
-                    'first' => $getByID,
-                    'other' => $getByID2
+                    'message' => $message
                     ]);
             } 
         }

@@ -17,8 +17,8 @@
           <p>Coût : <?= $unit->cost() ?></p>
         </div>
         <div class="card-action">
-          <col><a href="index.php?action=edit-unit&id=<?= $unit->id() ?>" class="btn">Modifier</a></col>
-          <col><a href="index.php?action=delete-unit&id=<?= $unit->id() ?>" class="btn red">Supprimer</a></col>
+          <col><a href="index.php?action=edit-unit" class="btn">Modifier</a></col>
+          <col><a href="index.php?action=del-unit" class="btn red">Supprimer</a></col>
         </div>
       </div>
     </div>

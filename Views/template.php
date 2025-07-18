@@ -8,8 +8,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title><?= $this->e($title) ?></title>
     </head>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <body>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
         <header>
             <!-- Menu -->
             <nav>
@@ -18,7 +18,7 @@
                     <ul class="right">
                         <li><a href="index.php">Accueil</a></li>
                         <li><a href="index.php?action=add-unit">Ajouter un unit</a></li>
-                        <li><a href="index.php?action=add-unit-origin">Ajouter un origin</a></li>
+                        <li><a href="index.php?action=add-origin">Ajouter un origin</a></li>
                         <li><a href="index.php?action=search">Rechercher</a></li>
                     </ul>
                 </div>
@@ -33,6 +33,13 @@
         <footer>
 
         </footer>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() 
+    {
+        var elems = document.querySelectorAll('select');
+        M.FormSelect.init(elems);
+    });
+    </script>
     </body>
 
 </html>

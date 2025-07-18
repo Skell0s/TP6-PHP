@@ -3,7 +3,7 @@
 
     class Unit
     {
-        private ?string $_id;
+        private ?string $id;
         private string $name;
         private int $cost;
         private string $origin;
@@ -13,11 +13,11 @@
 
         public function id() : ?string
         {
-            return $this->_id;
+            return $this->id;
         }
         public function setId(string $id) : void
         {
-            $this->_id = $id;
+            $this->id = $id;
         }
 
         public function name() : string

@@ -35,5 +35,18 @@
             }
             return $unit;
         }
+
+        public function createUnit(Unit $unit) : void
+        {
+            $sql = "INSERT INTO UNIT (id, name, cost, origin, url_img) VALUES (:id, :name, :cost, :origin, :url_img)";
+            $params = [
+                ':id' => $unit->id(),
+                ':name' => $unit->name(),
+                ':cost' => $unit->cost(),
+                ':origin' => $unit->origin(),
+                ':url_img' => $unit->url_img()
+            ];
+            $this->execRequest($sql, $params);
+        }
     }
 ?>
