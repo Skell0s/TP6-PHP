@@ -4,6 +4,7 @@
     use Models\Unit;
     use Models\UnitDAO;
     use Exception;
+    use Helpers\Message;
 
     class UnitController
     {
@@ -20,11 +21,26 @@
             $this->unitDAO = new UnitDAO();
         }
 
-        public function displayAddUnit(?string $message = null) : void 
+        public function displayAddUnit(?string $message = null, ?array $unit = null) : void 
         {
+            if ($unit == null)
+            {
+                $title = 'Add Unit';
+                $action = 'add-unit';
+                $boutonText = 'Ajouter';
+            }
+            else
+            {
+                $title = 'Edit Unit';
+                $action = 'edit-unit';
+                $boutonText = 'Modifier';
+            }
             echo $this->_templates->render('add-unit', [
-                'title' => 'Add Unit',
-                'message' => $message
+                'title' => $title,
+                'action' => $action,
+                'message' => $message,
+                'unit' => $unit,
+                'boutonText' => $boutonText
                 ]);
         }
 
@@ -35,7 +51,7 @@
                 ]);
         } 
 
-        public function addUnit(array $unit) : void
+        public function addUnit(array $unit, ?string $message = "") : void
         {
             try
             {
@@ -50,7 +66,6 @@
                 $unit = new Unit();
                 $unit = $unit->hydrate($data);
                 $this->unitDAO->createUnit($unit);
-                $message = "L'unité a été ajoutée avec succès !";
                 $this->mainController->index($message);
             }
             catch (Exception $e)
@@ -59,17 +74,45 @@
             }
         }
 
-        public function deleteUnitAndIndex(int $idUnit)
+        public function deleteUnitAndIndex(string $idUnit)
         {
             try
             {
                 $this->unitDAO->deleteUnit($idUnit);
-                $message = "L'unité a été supprimée avec succès !";
+                $message = new Message("L'unité a été supprimée avec succès !", Message::MESSAGE_COLOR_SUCCESS, "Succès");
                 $this->mainController->index($message);
             }
             catch (Exception $e)
             {
-                $this->errorController->displayError("Erreur : " . $e->getMessage());
+                $this->mainController->index("Erreur : " . $e->getMessage());
+            }
+        }
+
+        public function displayEditUnit(string $idUnit)
+        {
+            $unit = $this->unitDAO->getByID($idUnit);
+            $this->DisplayAddUnit(null, [
+                'id' => $unit->id(),
+                'name' => $unit->name(),
+                'cost' => $unit->cost(),
+                'origin' => $unit->origin(),
+                'url_img' => $unit->url_img()
+            ]);
+        }
+
+        public function editUnitAndIndex(array $dataUnit)
+        {
+            try
+            {
+                $unit = new Unit();
+                $unit->hydrate($dataUnit);
+                $this->unitDAO->editUnitAndIndex($dataUnit);
+                $message = "L'unité a été modifiée avec succès !";
+                $this->mainController->index($message);
+            }
+            catch (Exception $e)
+            {
+                $this->displayEditUnit("Erreur lors de la modification : " . $e->getMessage());
             }
         }
     }

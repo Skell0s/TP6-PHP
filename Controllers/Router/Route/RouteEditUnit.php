@@ -3,7 +3,7 @@
     use Controllers\Router\Route;
     use Controllers\UnitController;
 
-    class RouteAddUnit extends Route
+    class RouteEditUnit extends Route
     {
         private UnitController $_controller;
 
@@ -11,23 +11,24 @@
         {
             parent::__construct();
             $this->_controller = $controller;
+
         }
 
         public function get($params = [])
         {
-            $this->_controller->displayAddUnit();
+            if (!isset($params['idUnit']))
+            {
+                $this->_controller->displayAddUnit("L'identifiant de l'unité n'est pas spécifié.");
+            }
+            else
+            {
+                $this->_controller->displayEditUnit($params['idUnit']);
+            }
         }
 
         public function post($params = [])
         {
-            $data = [
-                "name" => $this->getParam($params, "name", false),
-                "cost" => $this->getParam($params, "cost", false),
-                "origin" => $this->getParam($params, "origin", false),
-                "url_img" => $this->getParam($params, "url_img", false)
-            ];
-
-            $this->_controller->addUnit($data);
+            $this->_controller->editUnitAndIndex($params);
         }
     }
 ?>

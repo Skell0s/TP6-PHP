@@ -1,11 +1,14 @@
 <?php
-  $this->layout('template', ['title' => $this->e($title)]); 
+    $this->layout('template', ['title' => $this->e($title)]); 
 ?>
-<form action="index.php?action=add-unit" method="post">
-    Id : <input type="text" name="id" required><br>
-    Nom : <input type="text" name="name" required><br>
-    Coût : <input type="number" name="cost" required><br>
-    Origine : <input type="text" name="origin" required><br>
-    URL de l'image : <input type="text" name="url_img" required><br>
-    <input type="submit" value="Ajouter">
+<form action="index.php?action=<?= $action ?>" method="post">
+    <input type="hidden" name="id" value="<?= $unit['id'] ?? null ?>"><br>
+    Nom : <input type="text" name="name" value="<?= $unit['name'] ?? null ?>" required><br>
+    Coût : <input type="number" name="cost" value="<?= $unit['cost'] ?? null ?>" required><br>
+    Origine : <input type="text" name="origin" value="<?= $unit['origin'] ?? null ?>" required><br>
+    URL de l'image : <input type="text" name="url_img" value="<?= $unit['url_img'] ?? null ?>" required><br>
+    <div class="align-wrapper">
+        <input class="btn blue" type="submit" value="<?= $boutonText ?>">
+        <a class="btn blue" href="index.php?action=index">Annuler</a>
+    </div>
 </form>

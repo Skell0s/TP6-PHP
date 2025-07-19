@@ -49,9 +49,9 @@
             $this->execRequest($sql, $params);
         }
 
-        public function deleteUnit(int $idUnit = -1) : void
+        public function deleteUnit(string $idUnit = "-1") : void
         {
-            if ($idUnit > 0)
+            if ($idUnit != "-1")
             {
                 $sql = "DELETE FROM UNIT WHERE id = :id";
                 $params = [
@@ -59,6 +59,19 @@
                 ];
                 $this->execRequest($sql, $params);
             }
+        }
+
+        public function editUnitAndIndex(array $dataUnit) : void
+        {
+            $sql = "UPDATE UNIT SET name = :name, cost = :cost, origin = :origin, url_img = :url_img WHERE id = :id";
+            $params = [
+                ':id' => $dataUnit['id'],
+                ':name' => $dataUnit['name'],
+                ':cost' => $dataUnit['cost'],
+                ':origin' => $dataUnit['origin'],
+                ':url_img' => $dataUnit['url_img']
+            ];
+            $this->execRequest($sql, $params);
         }
     }
 ?>

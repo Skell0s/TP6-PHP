@@ -10,7 +10,7 @@
     <div class="col s12 m4">
       <div class="card">
         <div class="card-image">
-          <img src="<?= $unit->url_img() ?>" alt="<?= $unit->name() ?>" class="responsive-img">
+          <img src="http://15.188.244.129//R3.01/TP6/public/img/<?= $unit->url_img() ?>" alt="<?= $unit->name() ?>" class="responsive-img">
         </div>
         <div class="card-content">
           <span class="card-title"><?= $unit->name() ?></span>
