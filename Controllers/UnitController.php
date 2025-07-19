@@ -9,12 +9,14 @@
     {
         private Engine $_templates;
         private MainController $mainController;
+        private ErrorController $errorController;
         private UnitDAO $unitDAO;
 
-        public function __construct(Engine $engine, MainController $mainController)
+        public function __construct(Engine $engine)
         {
             $this->_templates = $engine;
-            $this->mainController = $mainController;
+            $this->mainController = new MainController($engine);
+            $this->errorController = new ErrorController($engine);
             $this->unitDAO = new UnitDAO();
         }
 
@@ -54,6 +56,20 @@
             catch (Exception $e)
             {
                 $this->displayAddUnit("Erreur : " . $e->getMessage());
+            }
+        }
+
+        public function deleteUnitAndIndex(int $idUnit)
+        {
+            try
+            {
+                $this->unitDAO->deleteUnit($idUnit);
+                $message = "L'unité a été supprimée avec succès !";
+                $this->mainController->index($message);
+            }
+            catch (Exception $e)
+            {
+                $this->errorController->displayError("Erreur : " . $e->getMessage());
             }
         }
     }

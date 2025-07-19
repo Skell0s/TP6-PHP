@@ -48,5 +48,17 @@
             ];
             $this->execRequest($sql, $params);
         }
+
+        public function deleteUnit(int $idUnit = -1) : void
+        {
+            if ($idUnit > 0)
+            {
+                $sql = "DELETE FROM UNIT WHERE id = :id";
+                $params = [
+                    ':id' => $idUnit,
+                ];
+                $this->execRequest($sql, $params);
+            }
+        }
     }
 ?>

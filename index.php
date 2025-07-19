@@ -18,16 +18,6 @@
     
     use Controllers\Router\Router;
 
-    try 
-    {
-        $router = new Router();
-        $router->routing($_GET, $_POST);
-    } 
-    catch (Exception $e) 
-    {
-        $message = $e->getMessage();
-        ob_clean();  
-        require "Views/error.php";
-        exit();  
-    }
+    $router = new Router();
+    $router->routing($_GET, $_POST);
 ?>

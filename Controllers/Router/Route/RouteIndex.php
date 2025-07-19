@@ -15,12 +15,12 @@
 
         public function get($params = [])
         {
-            $this->_controller->index();
+            $this->_controller->index($params['message'] ?? null);
         }
 
         public function post($params = [])
         {
-            $this->_controller->index();
+            $this->_controller->index($params['message'] ?? null);
         }
     }
 ?>

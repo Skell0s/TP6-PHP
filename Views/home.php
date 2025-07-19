@@ -3,6 +3,7 @@
 ?>
 
 <h2 class="center-align">Unité TFT</h2>
+<p><?= $message ?></p>
 
 <div class="row">
   <?php foreach ($listUnit as $unit): ?>
@@ -17,8 +18,8 @@
           <p>Coût : <?= $unit->cost() ?></p>
         </div>
         <div class="card-action">
-          <col><a href="index.php?action=edit-unit" class="btn">Modifier</a></col>
-          <col><a href="index.php?action=del-unit" class="btn red">Supprimer</a></col>
+          <col><a href="index.php?action=edit-unit&idUnit=<?= $unit->id() ?>" class="btn">Modifier</a></col>
+          <col><a href="index.php?action=del-unit&idUnit=<?= $unit->id() ?>" class="btn red">Supprimer</a></col>
         </div>
       </div>
     </div>
