@@ -8,7 +8,7 @@
 <body class="red lighten-4">
     <div class="container">
         <h3 class="red-text">Une erreur est survenue</h3>
-        <p><?= htmlspecialchars($message) ?></p>
+        <p><?= htmlspecialchars($message->getText()) ?></p>
         <a href="index.php" class="btn red">Retour à l'accueil</a>
     </div>
 </body>

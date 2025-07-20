@@ -1,6 +1,6 @@
 <?php
     use Models\Unit;
-    $this->layout('template', ['title' => $this->e($title)]);
+    $this->layout('template', ['title' => $title, 'message' => $message]);
     $search = new Unit();
     $reflect = new ReflectionClass($search);
     $unitTypes = $reflect->getProperties(ReflectionProperty::IS_PRIVATE);

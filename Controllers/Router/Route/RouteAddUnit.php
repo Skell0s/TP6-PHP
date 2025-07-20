@@ -23,7 +23,11 @@
             $data = [
                 "name" => $this->getParam($params, "name", false),
                 "cost" => $this->getParam($params, "cost", false),
-                "origin" => $this->getParam($params, "origin", false),
+                "origin" => [
+                        ["id"=>intval($this->getParam($params, "origin1", false))],
+                        ["id"=>intval($this->getParam($params, "origin2", false))],
+                        ["id"=>intval($this->getParam($params, "origin3", false))]
+                    ],
                 "url_img" => $this->getParam($params, "url_img", false)
             ];
 

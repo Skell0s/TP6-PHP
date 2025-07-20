@@ -15,6 +15,7 @@
         {
             echo $this->_templates->render('search', [
                 'title' => 'Search',
+                'message' => null
                 ]);
         } 
     }

@@ -1,9 +1,8 @@
 <?php
-  $this->layout('template', ['title' => $this->e($tftSetName)]); 
+  $this->layout('template', ['title' => $tftSetName, 'message' => $message]); 
 ?>
 
 <h2 class="center-align">Unité TFT</h2>
-<p><?= $message ?></p>
 
 <div class="row">
   <?php foreach ($listUnit as $unit): ?>
@@ -14,7 +13,8 @@
         </div>
         <div class="card-content">
           <span class="card-title"><?= $unit->name() ?></span>
-          <p>Origine : <?= $unit->origin() ?></p>
+          <p>Origines : <?php foreach ($unit->origin() as $origin): ?>
+            <br><?= "- " . $origin->name()?><?php endforeach; ?></p>
           <p>Coût : <?= $unit->cost() ?></p>
         </div>
         <div class="card-action">

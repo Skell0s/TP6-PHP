@@ -4,6 +4,7 @@
     use Controllers\UnitController;
     use Controllers\SearchController;
     use Controllers\ErrorController;
+    use Controllers\OriginController;
     use League\Plates\Engine;
     use Controllers\Router\Route\RouteIndex;
     use Controllers\Router\Route\RouteAddUnit;
@@ -12,6 +13,8 @@
     use Controllers\Router\Route\RouteAddOrigin;
     use Controllers\Router\Route\RouteSearch;
     use Controllers\Router\Route\RouteError;
+    use Controllers\Router\Route\RouteDelOrigin;
+    use Controllers\Router\Route\RouteEditOrigin;
     use Exception;
     class Router
     {
@@ -38,7 +41,8 @@
                 "main" => new MainController(new Engine('Views')),
                 "unit" => new UnitController(new Engine('Views')),
                 "search" => new SearchController(new Engine('Views')),
-                "error" => new ErrorController(new Engine('Views'))
+                "error" => new ErrorController(new Engine('Views')),
+                "origin" => new OriginController(new Engine('Views'))
             ];
         }
 
@@ -47,11 +51,13 @@
             $this->routeList = [
                 "index" => new RouteIndex($this->ctrlList['main']),
                 "add-unit" => new RouteAddUnit($this->ctrlList['unit']),
-                "add-origin" => new RouteAddOrigin($this->ctrlList['unit']),
+                "add-origin" => new RouteAddOrigin($this->ctrlList['origin']),
                 "search" => new RouteSearch($this->ctrlList['search']),
                 "del-unit" => new RouteDelUnit($this->ctrlList['unit']),
                 "edit-unit" => new RouteEditUnit($this->ctrlList['unit']),
-                "error" => new RouteError($this->ctrlList['error'])
+                "error" => new RouteError($this->ctrlList['error']),
+                "del-origin" => new RouteDelOrigin($this->ctrlList['origin']),
+                "edit-origin" => new RouteEditOrigin($this->ctrlList['origin'])
             ];
         }
 

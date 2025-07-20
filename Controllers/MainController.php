@@ -3,6 +3,7 @@
     {
         use League\Plates\Engine;
         use Models\UnitDAO;
+        use Helpers\Message;
         class MainController
         {
             private Engine $_templates;
@@ -12,7 +13,7 @@
                 $this->_templates = $engine;
             }
 
-            public function index(?string $message) : void 
+            public function index(?Message $message = null) : void 
             {
                 $dao = new UnitDAO();
 

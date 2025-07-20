@@ -27,6 +27,15 @@
             }
         }
 
+        /**
+         * Récupère un paramètre dans un tableau associatif.
+         *
+         * @param array $array Le tableau associatif à partir duquel récupérer le paramètre.
+         * @param string $paramName Le nom du paramètre à récupérer.
+         * @param bool $canBeEmpty Indique si le paramètre peut être vide (par défaut, true).
+         * @return mixed La valeur du paramètre.
+         * @throws Exception Si le paramètre est absent ou vide (si canBeEmpty est false).
+         */
         protected function getParam(array $array, string $paramName, bool $canBeEmpty=true)
         {
             if (isset($array[$paramName])) 

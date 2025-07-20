@@ -3,6 +3,8 @@
     use League\Plates\Engine;
     use Models\Unit;
     use Models\UnitDAO;
+    use Models\OriginDAO;
+    use Models\UnitFactory;
     use Exception;
     use Helpers\Message;
 
@@ -12,6 +14,10 @@
         private MainController $mainController;
         private ErrorController $errorController;
         private UnitDAO $unitDAO;
+        private OriginDAO $originDAO;
+        private UnitFactory $unitFactory;
+
+
 
         public function __construct(Engine $engine)
         {
@@ -19,9 +25,13 @@
             $this->mainController = new MainController($engine);
             $this->errorController = new ErrorController($engine);
             $this->unitDAO = new UnitDAO();
+            $this->originDAO = new OriginDAO();
+            $this->unitFactory = new UnitFactory($this->originDAO);
         }
 
-        public function displayAddUnit(?string $message = null, ?array $unit = null) : void 
+
+
+        public function displayAddUnit(?Message $message = null, ?array $unit = null) : void 
         {
             if ($unit == null)
             {
@@ -40,21 +50,16 @@
                 'action' => $action,
                 'message' => $message,
                 'unit' => $unit,
+                'origins' => $this->originDAO->getAll(),
                 'boutonText' => $boutonText
                 ]);
         }
 
-        public function displayAddOrigin() : void 
-        {
-            echo $this->_templates->render('add-origin', [
-                'title' => 'Add Origin',
-                ]);
-        } 
-
-        public function addUnit(array $unit, ?string $message = "") : void
+        public function addUnit(array $unit, ?Message $message = null) : void
         {
             try
             {
+                $this->isDifferent($unit['origin']);
                 $data = [
                     "id" => uniqid(),
                     "name" => $unit['name'],
@@ -70,7 +75,8 @@
             }
             catch (Exception $e)
             {
-                $this->displayAddUnit("Erreur : " . $e->getMessage());
+                $message = new Message("Erreur lors de l'ajout de l'unité : " . $e->getMessage(), Message::MESSAGE_COLOR_ERROR, "Erreur");
+                $this->displayAddUnit($message);
             }
         }
 
@@ -84,14 +90,15 @@
             }
             catch (Exception $e)
             {
-                $this->mainController->index("Erreur : " . $e->getMessage());
+                $message = new Message("Erreur : " . $e->getMessage(), Message::MESSAGE_COLOR_ERROR, "Erreur");
+                $this->mainController->index($message);
             }
         }
 
-        public function displayEditUnit(string $idUnit)
+        public function displayEditUnit(string $idUnit, ?Message $message = null)
         {
             $unit = $this->unitDAO->getByID($idUnit);
-            $this->DisplayAddUnit(null, [
+            $this->DisplayAddUnit($message, [
                 'id' => $unit->id(),
                 'name' => $unit->name(),
                 'cost' => $unit->cost(),
@@ -104,15 +111,29 @@
         {
             try
             {
+                $this->isDifferent($dataUnit['origin']);
                 $unit = new Unit();
                 $unit->hydrate($dataUnit);
                 $this->unitDAO->editUnitAndIndex($dataUnit);
-                $message = "L'unité a été modifiée avec succès !";
+                $message = new Message("L'unité a été modifiée avec succès !", Message::MESSAGE_COLOR_SUCCESS, "Succès");
                 $this->mainController->index($message);
             }
             catch (Exception $e)
             {
-                $this->displayEditUnit("Erreur lors de la modification : " . $e->getMessage());
+                $message = new Message("Erreur lors de la modification : " . $e->getMessage(), Message::MESSAGE_COLOR_ERROR, "Erreur");
+                $this->displayEditUnit($dataUnit['id'], $message);
+            }
+        }
+
+        private function isDifferent(array $origins) : void
+        {
+            foreach ($origins as $origin)
+            {
+                $diff[] = $origin['id'];
+            }
+            if (count($diff) != count(array_unique($diff)))
+            {
+                throw new Exception("Les origines doivent être uniques.");
             }
         }
     }

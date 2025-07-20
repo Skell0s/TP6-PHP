@@ -3,10 +3,10 @@
 
     class Message
     {
-        public const MESSAGE_COLOR_SUCCESS = 'success';
-        public const MESSAGE_COLOR_ERROR = 'danger';
-        public const MESSAGE_COLOR_INFO = 'info';
-        public const MESSAGE_COLOR_WARNING = 'warning';
+        public const MESSAGE_COLOR_SUCCESS = 'green';
+        public const MESSAGE_COLOR_ERROR = 'red';
+        public const MESSAGE_COLOR_INFO = 'blue';
+        public const MESSAGE_COLOR_WARNING = 'orange';
 
         private string $text;
         private string $type;
