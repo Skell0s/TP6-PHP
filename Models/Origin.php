@@ -13,7 +13,7 @@
         {
             return $this->id;
         }
-        public function setId(int $id) : void
+        public function setId(?int $id) : void
         {
             $this->id = $id;
         }
@@ -38,7 +38,7 @@
 
 
 
-        public function _construct(Array $data)
+        public function __construct(Array $data = ['id' => null, 'name' => '', 'url_img' => ''])
         {
             $this->hydrate($data);
         }

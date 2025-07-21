@@ -28,7 +28,8 @@
                         ["id"=>intval($this->getParam($params, "origin2", false))],
                         ["id"=>intval($this->getParam($params, "origin3", false))]
                     ],
-                "url_img" => $this->getParam($params, "url_img", false)
+                "url_img" => $this->getParam($params, "url_img", false),
+                "image" => $this->getParam($params, "image", true)
             ];
 
             $this->_controller->addUnit($data);

@@ -1,7 +1,7 @@
 <?php
     $this->layout('template', ['title' => $title, 'message' => $message]); 
 ?>
-<form action="index.php?action=<?= $action ?>" method="post">
+<form action="index.php?action=<?= $action ?>" method="post" enctype="multipart/form-data">
     <input type="hidden" name="id" value="<?= $unit['id'] ?? null ?>"><br>
     Nom : <input type="text" name="name" value="<?= $unit['name'] ?? null ?>" required><br>
     Coût : <input type="number" name="cost" value="<?= $unit['cost'] ?? null ?>" required><br>
@@ -27,6 +27,14 @@
         <?php endforeach; ?>
     </select></div><br>
     URL de l'image : <input type="text" name="url_img" value="<?= $unit['url_img'] ?? null ?>" required><br>
+    <div class="file-field input-field">
+        <div class="btn blue">
+            <input type="file" name="image" accept="image/png, image/jpg">
+        </div>
+        <div class="file-path-wrapper">
+            <input class="file-path validate" type="text" placeholder="Choisir une image">
+        </div>
+    </div>
     <div class="align-wrapper">
         <input class="btn blue" type="submit" value="<?= $boutonText ?>">
         <a class="btn blue" href="index.php?action=index">Annuler</a>

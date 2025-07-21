@@ -3,6 +3,7 @@
 
     <head>
         <meta charset="UTF-8"/>
+        <link rel="stylesheet" href="/R3.01/TP6/public/css/main.css"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"/>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,7 +15,7 @@
             <!-- Menu -->
             <nav>
                 <div class="nav-wrapper blue">
-                    <a href="index.php" class="left brand-logo" style="padding-left: 15px;">Mon projet</a>
+                    <a href="index.php" class="left brand-logo hide-on-small-only" style="padding-left: 15px;">Mon projet</a>
                     <ul class="right">
                         <li><a href="index.php">Accueil</a></li>
                         <li><a href="index.php?action=add-unit">Ajouter un unit</a></li>

@@ -20,7 +20,7 @@
 
         public function post($params = [])
         {
-            
+            $this->_controller->search($params);
         }
     }
 ?>

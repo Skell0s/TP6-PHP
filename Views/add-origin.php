@@ -5,12 +5,12 @@
     <input type="hidden" name="id" value="<?= $origin['id'] ?? null ?>">
     Nom : <input type="text" name="name" value="<?= $origin['name'] ?? null ?>" required><br>
     URL de l'image : <input type="text" name="url_img" value="<?= $origin['url_img'] ?? null ?>" required><br>
-    <input type="submit" value="<?= $boutonText ?>">
+    <input class="btn blue" type="submit" value="<?= $boutonText ?>">
 </form>
 
 <div class="row">
   <?php foreach ($listOrigin as $origin): ?>
-    <div class="col s12 m4">
+    <div class="col">
       <div class="card">
         <div class="card-image">
           <img src="http://15.188.244.129//R3.01/TP6/public/img/<?= $origin->url_img() ?>" alt="<?= $origin->name() ?>" class="responsive-img">

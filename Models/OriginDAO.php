@@ -92,5 +92,21 @@
             }
             return $result;
         }
+
+        public function search(string $type, string $search) : array
+        {
+            $sql = "SELECT * FROM ORIGIN WHERE $type LIKE :search";
+            $params = [
+                ':search' => "%$search%"
+            ];
+            $stmt = $this->execRequest($sql, $params);
+            $result = [];
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC))
+            {
+                $origin = new Origin($row);
+                $result[] = $origin;
+            }
+            return $result;
+        }
     }
 ?>

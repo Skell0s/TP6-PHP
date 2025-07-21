@@ -109,5 +109,21 @@
                 $this->execRequest($sql, $params);
             }
         }
+
+        public function search(string $type, string $search) : array
+        {
+            $sql = "SELECT * FROM UNIT WHERE $type LIKE :search";
+            $params = [
+                ':search' => "%$search%"
+            ];
+            $stmt = $this->execRequest($sql, $params);
+            $result = [];
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC))
+            {
+                $unit = $this->unitFactory->build($row);
+                $result[] = $unit;
+            }
+            return $result;
+        }
     }
 ?>
