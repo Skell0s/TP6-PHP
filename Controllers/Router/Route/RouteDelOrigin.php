@@ -23,5 +23,10 @@
         {
 
         }
+
+        public function file($params = [])
+        {
+
+        }
     }
 ?>

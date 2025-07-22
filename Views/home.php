@@ -6,7 +6,7 @@
 
 <div class="row">
   <?php foreach ($listUnit as $unit): ?>
-    <div class="col s12 m4">
+    <div class="col">
       <div class="card">
         <div class="card-image">
           <img src="http://15.188.244.129//R3.01/TP6/public/img/<?= $unit->url_img() ?>" alt="<?= $unit->name() ?>" class="responsive-img">

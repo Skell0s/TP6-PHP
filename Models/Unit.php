@@ -6,7 +6,7 @@
         private ?string $id;
         private string $name;
         private int $cost;
-        private array $origin;
+        private ?array $origin;
         private string $url_img;
 
 
@@ -38,11 +38,11 @@
             $this->cost = $cost;
         }
 
-        public function origin() : array
+        public function origin() : ?array
         {
             return $this->origin;
         }
-        public function setOrigin(array $origin) : void
+        public function setOrigin(?array $origin) : void
         {
             $this->origin = $origin;
         }

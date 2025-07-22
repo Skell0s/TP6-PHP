@@ -19,5 +19,5 @@
     use Controllers\Router\Router;
 
     $router = new Router();
-    $router->routing($_GET, $_POST);
+    $router->routing($_GET, $_POST, $_FILES);
 ?>

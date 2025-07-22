@@ -52,18 +52,21 @@
                 ':id' => $unit->id(),
                 ':name' => $unit->name(),
                 ':cost' => $unit->cost(),
-                ':url_img' => $unit->url_img()
+                ':url_img' => $unit->url_img() ?? ''
             ];
             $this->execRequest($sql, $params);
             foreach ($unit->origin() as $origin)
             {
-                $sql = "INSERT INTO UNITORIGIN (id, id_unit, id_origin) VALUES (:id, :id_unit, :id_origin)";
-                $params = [
-                    ':id' => random_int(-1000000000, 1000000000),
-                    ':id_unit' => $unit->id(),
-                    ':id_origin' => $origin['id']
-                ];
-                $this->execRequest($sql, $params);
+                if ($origin != null)
+                {
+                    $sql = "INSERT INTO UNITORIGIN (id, id_unit, id_origin) VALUES (:id, :id_unit, :id_origin)";
+                    $params = [
+                        ':id' => random_int(-1000000000, 1000000000),
+                        ':id_unit' => $unit->id(),
+                        ':id_origin' => $origin['id']
+                    ];
+                    $this->execRequest($sql, $params);
+                }
             }
         }
 
@@ -89,7 +92,6 @@
                 ':url_img' => $dataUnit['url_img']
             ];
             $this->execRequest($sql, $params);
-
             // Suppression des anciennes origines
             $sql = "DELETE FROM UNITORIGIN WHERE id_unit = :id_unit";
             $params = [
@@ -100,13 +102,16 @@
             // Insertion des nouvelles origines
             foreach ($dataUnit['origin'] as $origin)
             {
-                $sql = "INSERT INTO UNITORIGIN (id, id_unit, id_origin) VALUES (:id, :id_unit, :id_origin)";
-                $params = [
-                    ':id' => random_int(-1000000000, 1000000000),
-                    ':id_unit' => $dataUnit['id'],
-                    ':id_origin' => $origin['id']
-                ];
-                $this->execRequest($sql, $params);
+                if ($origin['id'] != null)
+                {   
+                    $sql = "INSERT INTO UNITORIGIN (id, id_unit, id_origin) VALUES (:id, :id_unit, :id_origin)";
+                    $params = [
+                        ':id' => random_int(-1000000000, 1000000000),
+                        ':id_unit' => $dataUnit['id'],
+                        ':id_origin' => $origin['id']
+                    ];
+                    $this->execRequest($sql, $params);
+                }
             }
         }
 

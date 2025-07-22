@@ -1,29 +1,41 @@
 <?php
     namespace Controllers\Router;
     use Exception;
+    use Controllers\FileController;
 
     abstract class Route
     {
-        public function __construct()
+        protected static function fileController() : FileController
         {
-            
+            return new FileController();
         }
 
 
 
-        public function action($params = [], $method = 'GET') : void
+        public function __construct()
         {
-            if ($method === 'GET') 
+
+        }
+
+
+
+        public function action($params = [], $method = 'GET', array $files = []) : void
+        {
+            switch($method)
             {
-                $this->get($params);
-            } 
-            else if ($method === 'POST') 
-            {
-                $this->post($params);
-            } 
-            else 
-            {
-                throw new Exception("Méthode HTTP non supportée");
+                case($method == 'FILE') :
+                    $this->file($files);
+                    $this->post($params);
+                    break;
+                case($method == 'POST') :
+                    $this->post($params);
+                    break;
+                case($method == 'GET') :
+                    $this->get($params);
+                    break;
+                default :
+                    throw new Exception("Méthode HTTP non supportée");
+                    break;
             }
         }
 
@@ -55,5 +67,6 @@
 
         abstract public function get($params = []);
         abstract public function post($params = []);
+        abstract public function file($files = []);
     }
 ?>

@@ -61,7 +61,7 @@
             ];
         }
 
-        public function routing(array $get, array $post) : void
+        public function routing(array $get, array $post, array $file = []) : void
         {
             try
             {
@@ -80,17 +80,26 @@
 
                 $route = $this->routeList[$action];
                 $params = [];
-                if (!empty($post)) 
+                $method = '';
+                $requests = ['get' => $get, 'post' => $post, 'file' => $file];
+                switch($requests)
                 {
-                    $params = $post;
-                    $method = 'POST';
+                    case(isset($requests['file']['image']['size']) && $requests['file']['image']['size'] > 0) :
+                        $params = $post;
+                        $params['url_img'] = $file['image']['name'];
+                        $method = 'FILE';
+                        break;
+                    case(!empty($requests['post'])) :
+                        $params = $post;
+                        $method = 'POST';
+                        break;
+                    case(!empty($requests['get'])) :
+                        $params = $get;
+                        $method = 'GET';
+                        break;
+                    default;
                 }
-                else if (isset($get)) 
-                {
-                    $params = $get;
-                    $method = 'GET';
-                }
-                $route->action($params, $method);
+                $route->action($params, $method, $file);
             }
             catch (Exception $e)
             {

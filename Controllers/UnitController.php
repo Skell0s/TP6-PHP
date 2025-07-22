@@ -45,13 +45,16 @@
                 $action = 'edit-unit';
                 $boutonText = 'Modifier';
             }
+            $files = scandir('public/img/');
+            $files = array_diff($files, ['.', '..']);
             echo $this->_templates->render('add-unit', [
                 'title' => $title,
                 'action' => $action,
                 'message' => $message,
                 'unit' => $unit,
                 'origins' => $this->originDAO->getAll(),
-                'boutonText' => $boutonText
+                'boutonText' => $boutonText,
+                'files' => $files
                 ]);
         }
 
@@ -127,9 +130,13 @@
 
         private function isDifferent(array $origins) : void
         {
+            $diff = [];
             foreach ($origins as $origin)
             {
-                $diff[] = $origin['id'];
+                if ($origin['id'] != null)
+                {
+                    $diff[] = $origin['id'];
+                }
             }
             if (count($diff) != count(array_unique($diff)))
             {

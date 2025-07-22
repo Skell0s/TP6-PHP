@@ -22,5 +22,10 @@
         {
             $this->_controller->index($params['message'] ?? null);
         }
+
+        public function file($params = [])
+        {
+            
+        }
     }
 ?>

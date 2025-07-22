@@ -20,19 +20,36 @@
 
         public function post($params = [])
         {
-            $data = [
-                "name" => $this->getParam($params, "name", false),
-                "cost" => $this->getParam($params, "cost", false),
-                "origin" => [
-                        ["id"=>intval($this->getParam($params, "origin1", false))],
-                        ["id"=>intval($this->getParam($params, "origin2", false))],
-                        ["id"=>intval($this->getParam($params, "origin3", false))]
-                    ],
-                "url_img" => $this->getParam($params, "url_img", false),
-                "image" => $this->getParam($params, "image", true)
-            ];
+            $data['origin'] = [];
+            foreach ($params as $key => $param)
+            {
+                if ($key == "name" || $key == "cost")
+                {
+                    $data[$key] = $this->getParam($params, $key, false);
+                }
+                else if ($key == "origin1" || $key == "origin2" || $key == "origin3")
+                {
+                    if ($param == "")
+                    {
+                        $data['origin']['id'] = null;
+                    }
+                    else
+                    {
+                        $data['origin']['id'] = intval($this->getParam($params, $key, true));
+                    }
+                }
+                else if ($key != 'id')
+                {
+                    $data[$key] = $this->getParam($params, $key, true);
+                }
+            }
 
             $this->_controller->addUnit($data);
+        }
+
+        public function file($params = [])
+        {
+            parent::fileController()->upload($params);
         }
     }
 ?>

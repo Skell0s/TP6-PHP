@@ -22,5 +22,10 @@
         {
             $this->_controller->displayError($params['message'] ?? null);
         }
+
+        public function file($params = [])
+        {
+            
+        }
     }
 ?>

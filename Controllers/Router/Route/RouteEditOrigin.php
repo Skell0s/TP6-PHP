@@ -32,5 +32,10 @@
         {
             $this->_controller->editOriginAndIndex($params);
         }
+
+        public function file($params = [])
+        {
+            parent::fileController()->upload($params);
+        }
     }
 ?>

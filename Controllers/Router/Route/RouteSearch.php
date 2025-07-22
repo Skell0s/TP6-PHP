@@ -22,5 +22,10 @@
         {
             $this->_controller->search($params);
         }
+
+        public function file($params = [])
+        {
+            
+        }
     }
 ?>

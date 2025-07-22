@@ -22,5 +22,10 @@
         {
             $this->_controller->addOrigin($params);
         }
+
+        public function file($params = [])
+        {
+            parent::fileController()->upload($params);
+        }
     }
 ?>

@@ -1,6 +1,7 @@
 <?php
     namespace Controllers;
     use League\Plates\Engine;
+    use Helpers\Message;
 
     class ErrorController
     {
@@ -11,8 +12,9 @@
             $this->_templates = $engine;
         }
 
-        public function displayError(string $message = "Une erreur inconnu est survenu.") : void 
+        public function displayError(string $text = "Une erreur inconnu est survenu.") : void 
         {
+            $message = new Message($text, Message::MESSAGE_COLOR_ERROR, "Erreur");
             ob_clean();
             http_response_code(500);
 
